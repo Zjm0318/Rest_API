@@ -11,5 +11,6 @@ namespace IOT_Rest_Model.DBModels
 		 public int  Order_Id { get; set; }
 		 public int  Menu_Id { get; set; }
 		 public int  Spec_Id { get; set; }
-	 }
+		public int MenuNum { get; set; }    //²ËÆ·ÊıÁ¿
+	}
 }
