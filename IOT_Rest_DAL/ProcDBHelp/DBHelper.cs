@@ -20,13 +20,13 @@ namespace IOT_Rest_DAL.DBHelp
         public int ExecuteNonQuery_Proc(string procName, MySqlParameter[] mySqlParameters)
         {
             int code = 0;
-            using (MySqlConnection conn = new MySqlConnection(Connection))
+            using (MySqlConnection con = new MySqlConnection(Connection))
             {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(procName, conn))
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(procName, con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(mySqlParameters);
+                    cmd.Parameters.AddRange(mySqlParameters);
                     code = cmd.ExecuteNonQuery();
                 }
             }
@@ -40,19 +40,19 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public DataTable ExecuteSql_Proc(string procName, MySqlParameter[] sqlParameters)
         {
-            DataSet set = new DataSet();
-            using (MySqlConnection conn = new MySqlConnection(Connection))
+            DataTable tb = new DataTable();
+            using (MySqlConnection con = new MySqlConnection(Connection))
             {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(procName, conn))
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(procName, con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(sqlParameters);
+                    cmd.Parameters.AddRange(sqlParameters);
                     MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(set);
+                    adapter.Fill(tb);
                 }
             }
-            return set.Tables[0];
+            return tb;
         }
         /// <summary>
         /// 分页存储过程
@@ -61,23 +61,22 @@ namespace IOT_Rest_DAL.DBHelp
         /// <param name="parame"></param>
         /// <param name="RowsCount"></param>
         /// <returns></returns>
-        public DataTable ExecuteSql_Proc(string ProcName, MySqlParameter[] parame, ref int RowsCount)
+        public DataTable ExecuteSql_Proc(string procName, MySqlParameter[] parame, ref int RowsCount)
         {
-            DataSet set = new DataSet();
-            using (MySqlConnection conn = new MySqlConnection(Connection))
+            DataTable tb = new DataTable();
+            using (MySqlConnection con = new MySqlConnection(Connection))
             {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(ProcName, conn))
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(procName, con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(parame);
+                    cmd.Parameters.AddRange(parame);
                     MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(set);
-                    //获取输出参数
+                    adapter.Fill(tb);
                     RowsCount = int.Parse(cmd.Parameters["RowsCount"].Value.ToString());
                 }
             }
-            return set.Tables[0];
+            return tb;
         }
     }
 }
