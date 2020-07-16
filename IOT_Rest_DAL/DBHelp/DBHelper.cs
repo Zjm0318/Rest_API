@@ -17,7 +17,16 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public int ExcuteNonQuery(string sql)
         {
-            throw new NotImplementedException();
+            int code = 0;
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    code = cmd.ExecuteNonQuery();
+                }
+            }
+            return code;
         }
         /// <summary>
         /// 执行sql，返回结果集
@@ -26,7 +35,17 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public DataTable ExcuteSql(string sql)
         {
-            throw new NotImplementedException();
+            DataSet set = new DataSet();
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    adapter.Fill(set);
+                }
+            }
+            return set.Tables[0];
         }
         /// <summary>
         /// 执行存储过程，返回受影响行数
@@ -36,7 +55,18 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public int ExecuteNonQuery_Proc(string procName, MySqlParameter[] mySqlParameters)
         {
-            throw new NotImplementedException();
+            int code = 0;
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(procName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(mySqlParameters);
+                    code = cmd.ExecuteNonQuery();
+                }
+            }
+            return code;
         }
         /// <summary>
         /// 执行存储过程，返回结果集
@@ -46,7 +76,19 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public DataTable ExecuteSql_Proc(string procName, MySqlParameter[] sqlParameters)
         {
-            throw new NotImplementedException();
+            DataSet set = new DataSet();
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(procName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(sqlParameters);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    adapter.Fill(set);
+                }
+            }
+            return set.Tables[0];
         }
         /// <summary>
         /// 分页存储过程
@@ -57,7 +99,21 @@ namespace IOT_Rest_DAL.DBHelp
         /// <returns></returns>
         public DataTable ExecuteSql_Proc(string ProcName, MySqlParameter[] parame, ref int RowsCount)
         {
-            throw new NotImplementedException();
+            DataSet set = new DataSet();
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(ProcName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(parame);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    adapter.Fill(set);
+                    //获取输出参数
+                    RowsCount = int.Parse(cmd.Parameters["RowsCount"].Value.ToString());
+                }
+            }
+            return set.Tables[0];
         }
     }
 }
