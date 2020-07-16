@@ -10,43 +10,7 @@ namespace IOT_Rest_DAL.DBHelp
     public class DBHelper : IDBHelper
     {
         private string Connection = "server=192.168.0.139;User Id=root;password=123456;Database=restaurant";
-        /// <summary>
-        /// 执行sql语句，返回受影响行数
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        public int ExcuteNonQuery(string sql)
-        {
-            int code = 0;
-            using (MySqlConnection conn = new MySqlConnection(Connection))
-            {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
-                {
-                    code = cmd.ExecuteNonQuery();
-                }
-            }
-            return code;
-        }
-        /// <summary>
-        /// 执行sql，返回结果集
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        public DataTable ExcuteSql(string sql)
-        {
-            DataSet set = new DataSet();
-            using (MySqlConnection conn = new MySqlConnection(Connection))
-            {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(set);
-                }
-            }
-            return set.Tables[0];
-        }
+
         /// <summary>
         /// 执行存储过程，返回受影响行数
         /// </summary>
