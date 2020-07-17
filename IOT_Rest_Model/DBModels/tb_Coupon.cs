@@ -11,7 +11,7 @@ namespace IOT_Rest_Model.DBModels
 		 public string  Coupon_Name { get; set; }
 		 public int  Coupon_Money { get; set; }
 		 public int  Coupon_Tj { get; set; }
-		 public DateTime  Coupon_EndTime { get; set; }
+		 public string  Coupon_EndTime { get; set; }
 		 public int  Coupon_Num { get; set; }
 	 }
 }
