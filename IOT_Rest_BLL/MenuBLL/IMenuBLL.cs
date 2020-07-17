@@ -23,11 +23,8 @@ namespace IOT_Rest_BLL.MenuBLL
         /// 获取菜品类型
         /// </summary>
         /// <returns></returns>
-        public List<tb_MenuType> GetMenuTypeList();
-        /// <summary>
-        /// 根据用户Id获取购物车信息
-        /// </summary>
-        /// <returns></returns>
-        public List<tb_GoodsCar> GetCarList(int User_Id);
+         List<tb_MenuType> GetMenuTypeList();
+
+         List<tb_Menu> GetAllMenu();
     }
 }
