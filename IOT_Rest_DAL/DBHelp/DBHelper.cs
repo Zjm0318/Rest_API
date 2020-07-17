@@ -9,7 +9,7 @@ namespace IOT_Rest_DAL.DBHelp
 {
     public class DBHelper : IDBHelper
     {
-        private string Connection = "server=192.168.0.139;User Id=root;password=123456;Database=restaurant";
+        private string Connection = "server=192.168.0.192;User Id=root;password=1234;Database=restaurant";
         /// <summary>
         /// 执行sql 返回受影响行数
         /// </summary>
