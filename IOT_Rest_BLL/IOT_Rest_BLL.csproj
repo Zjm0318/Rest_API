@@ -10,4 +10,13 @@
     <ProjectReference Include="..\IOT_Rest_Model\IOT_Rest_Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IOT_Rest_Model\IOT_Rest_Model.csproj" />
+  </ItemGroup>
+
 </Project>

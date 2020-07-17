@@ -13,5 +13,8 @@ namespace IOT_Rest_Model.DBModels
 		 public int  Desk_Id { get; set; }
 		 public decimal  Order_Price { get; set; }
 		 public int  Order_State { get; set; }
-	 }
+		public string Order_fs { get; set; }   //支付方式
+		public string Order_Sate { get; set; }  //支付时间
+		public string Order_Dan { get; set; }    //下单时间
+	}
 }

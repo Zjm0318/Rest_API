@@ -8,19 +8,6 @@ namespace IOT_Rest_DAL.IDBHelp
 {
     public interface IDBHelper
     {
-        /// <summary>
-        /// 执行Sql语句，返回受影响行数
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        int ExcuteNonQuery(string sql);
-
-        /// <summary>
-        /// 执行Sql语句，返回结果集
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        DataTable ExcuteSql(string sql);
 
         /// <summary>
         /// 执行存储过程，返回受影响行数
