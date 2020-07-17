@@ -50,7 +50,7 @@ namespace Rest_API.Controllers.OrderController
                     om.O_State = item.Order_State;
                     a++;
                 }
-                om.O_Name = nm.TrimEnd(',').ToString();
+                om.O_Name = nm.TrimEnd('、').ToString();
                 order.Add(om);
             }
             return order;
