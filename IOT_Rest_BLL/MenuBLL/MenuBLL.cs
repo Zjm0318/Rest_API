@@ -31,5 +31,40 @@ namespace IOT_Rest_BLL.MenuBLL
             };
             return _dbHelper.ExecuteNonQuery_Proc(procName,mySqlParameters);
         }
+        /// <summary>
+        ///根据类型获取菜品信息
+        /// </summary>
+        /// <param name="TypeId"></param>
+        /// <returns></returns>
+        public List<tb_Menu> GetMenuList(int TypeId)
+        {
+            string procName = "proc_ShowMenu";
+            MySqlParameter[] mySqlParameter = new MySqlParameter[] {
+                new MySqlParameter{ParameterName="TypeId",MySqlDbType= MySqlDbType.Int32,Direction= ParameterDirection.Input,Value=TypeId }
+            };
+            DataTable tb= _dbHelper.ExecuteSql_Proc(procName, mySqlParameter);
+            List<tb_Menu> list = listClass.GetDataList<tb_Menu>(tb);
+            return list;
+        }
+        /// <summary>
+        /// 获取菜品类型
+        /// </summary>
+        /// <returns></returns>
+        public List<tb_MenuType> GetMenuTypeList()
+        {
+            string sql = "select * from tb_menutype;";
+            DataTable tb = _dbHelper.ExcuteSql(sql);
+            List<tb_MenuType> list = listClass.GetDataList<tb_MenuType>(tb);
+            return list;
+        }
+        /// <summary>
+        /// 获取所有菜品信息
+        /// </summary>
+        /// <returns></returns>
+        public List<tb_Menu> GetAllMenu()
+        {
+            DataTable tb = _dbHelper.ExcuteSql("select * from tb_Menu");
+            return listClass.GetDataList<tb_Menu>(tb);
+        }
     }
 }

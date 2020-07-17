@@ -9,7 +9,20 @@ namespace IOT_Rest_Model.DBModels
 	 {
 		 public int  Detail_Id { get; set; }
 		 public int  Order_Id { get; set; }
-		 public int  Menu_Id { get; set; }
-		 public int  Spec_Id { get; set; }
-	 }
+		public string Order_Num { get; set; }
+		public int User_Id { get; set; }
+		public int Desk_Id { get; set; }
+		public decimal Order_Price { get; set; }
+		public int Order_State { get; set; }
+		public string Order_fs { get; set; }   //支付方式
+		public string Order_Sate { get; set; }  //支付时间
+		public string Order_Dan { get; set; }    //下单时间
+		public int  Menu_Id { get; set; }
+		public string M_Name { get; set; }
+		public string M_Img { get; set; }
+		public decimal M_Price { get; set; }
+		public int  Spec_Id { get; set; }
+		public string MenuSpec_Name { get; set; }
+		public int MenuNum { get; set; }    //菜品数量
+	}
 }
