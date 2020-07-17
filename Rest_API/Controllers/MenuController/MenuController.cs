@@ -58,8 +58,10 @@ namespace Rest_API.Controllers.MenuController
         /// <returns></returns>
         public int AddCar(int User_Id,int Menu_Id)
         {
-            //获取该用户的所有购物车信息
+            //数据库获取该用户的所有购物车信息
             carList = _menuBLL.GetCarList(User_Id);
+            //获取当前菜品
+            tb_GoodsCar model = carList.Where(s => s.Menu_Id == Menu_Id).FirstOrDefault();
             //获取Redis数据库所有购物车信息
             List<tb_GoodsCar> _carList = _client.Get<List<tb_GoodsCar>>("Cars");
             if(_carList!=null)
@@ -68,7 +70,12 @@ namespace Rest_API.Controllers.MenuController
                 List<tb_GoodsCar> userCar = _carList.Where(s => s.User_Id == User_Id).ToList();
                 if(userCar!=null)
                 {
+                    //查询该用户下菜品Id为Menu_Id的菜品
+                    var m = userCar.Where(s => s.Menu_Id == Menu_Id).FirstOrDefault();
+                    if(m!=null)
+                    {
 
+                    }
                 }
             }
             
