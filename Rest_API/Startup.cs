@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using IOT_Rest_DAL.IDBHelp;
+using IOT_Rest_DAL.DBHelp;
+using IOT_Rest_BLL.MenuBLL;
 
 namespace Rest_API
 {
@@ -25,6 +28,8 @@ namespace Rest_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IDBHelper, DBHelper>();
+            services.AddSingleton<IMenuBLL, MenuBLL>();
             services.AddCors(options =>
             {
                 // Policy 名稱 CorsPolicy 是自訂的，可以自己改
