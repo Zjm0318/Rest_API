@@ -78,6 +78,7 @@ namespace Rest_API.Controllers.MenuController
                     }
                 }
             }
+            return 0;
             
         }
 

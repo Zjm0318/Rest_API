@@ -33,5 +33,18 @@ namespace IOT_Rest_DAL.IDBHelp
         /// <param name="RowsCount"></param>
         /// <returns></returns>
         public DataTable ExecuteSql_Proc(string ProcName, MySqlParameter[] parame, ref int RowsCount);
+
+        /// <summary>
+        /// 执行sql语句，返回受影响行数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public int ExcuteNonQuery(string sql);
+        /// <summary>
+        /// 执行sql，返回结果集
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public DataTable ExcuteSql(string sql);
     }
 }
