@@ -25,18 +25,6 @@ namespace Rest_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors(options =>
-            {
-                // Policy 名稱 CorsPolicy 是自訂的，可以自己改
-                options.AddPolicy("跨域规则的名称", policy =>
-                {
-                    // 設定允許跨域的來源，有多個的話可以用 `,` 隔開
-                    policy.WithOrigins("http://localhost:3000", "http://127.0.0.1")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .AllowCredentials();
-                });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +34,6 @@ namespace Rest_API
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
 
             app.UseAuthorization();
