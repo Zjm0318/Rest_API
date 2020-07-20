@@ -12,11 +12,13 @@ namespace Rest_API.Controllers.OrderController
         public List<MenuImg> O_Img { get; set; }
         public decimal O_Price { get; set; }
         public int O_State { get; set; }
+        public int Num { get; set; }
     }
 
     public class MenuImg
     {
-        public string Img { get; set; }
+        public string photo { get; set; }
     }
+
 
 }
