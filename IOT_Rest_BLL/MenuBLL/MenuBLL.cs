@@ -61,11 +61,10 @@ namespace IOT_Rest_BLL.MenuBLL
         /// 获取所有菜品信息
         /// </summary>
         /// <returns></returns>
-        public List<tb_GoodsCar> GetCarList(int User_Id)
+        public List<tb_Menu> GetAllMenu()
         {
-            string sql = "select * from tb_Menu";
-            DataTable tb = _dbHelper.ExcuteSql(sql);
-            return listClass.GetDataList<tb_GoodsCar>(tb);
+            DataTable tb = _dbHelper.ExcuteSql("select * from tb_Menu");
+            return listClass.GetDataList<tb_Menu>(tb);
         }
     }
 }

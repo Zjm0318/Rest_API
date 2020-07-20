@@ -22,7 +22,8 @@ namespace Rest_API.Controllers.MenuController
             _client = new CSRedis.CSRedisClient("127.0.0.1:6379");
             RedisHelper.Initialization(_client);
         }
-        List<tb_GoodsCar> carList = new List<tb_GoodsCar>();
+        
+        List<tb_Menu> menuList = new List<tb_Menu>();
         /// <summary>
         /// 添加菜品
         /// </summary>
@@ -39,47 +40,76 @@ namespace Rest_API.Controllers.MenuController
         /// <param name="TypeId"></param>
         /// <returns></returns>
         public List<tb_Menu> GetMenuList(int TypeId)
-        {
-            return _menuBLL.GetMenuList(TypeId);
+       {
+            List<tb_Menu> list= _menuBLL.GetMenuList(TypeId);
+            return list;
         }/// <summary>
          /// 获取菜品类型
          /// </summary>
          /// <returns></returns>
+         [HttpGet]
         public List<tb_MenuType> GetMenuTypeList()
         {
             return _menuBLL.GetMenuTypeList();
         }
-
+        
+        public List<tb_Menu> GetAllMenu()
+        {
+            menuList = _menuBLL.GetAllMenu();
+            return menuList;
+        }
         /// <summary>
         /// 添加购物车
         /// </summary>
-        /// <param name="User_Id"></param>
+        /// <param name="OpenId">用户主键</param>
         /// <param name="Menu_Id"></param>
         /// <returns></returns>
-        public int AddCar(int User_Id,int Menu_Id)
+        public int AddCar(string OpenId, int Menu_Id)
         {
-            //数据库获取该用户的所有购物车信息
-            carList = _menuBLL.GetCarList(User_Id);
-            //获取当前菜品
-            tb_GoodsCar model = carList.Where(s => s.Menu_Id == Menu_Id).FirstOrDefault();
-            //获取Redis数据库所有购物车信息
-            List<tb_GoodsCar> _carList = _client.Get<List<tb_GoodsCar>>("Cars");
-            if(_carList!=null)
+            tb_Menu model = menuList.Where(s => s.M_Id == Menu_Id).FirstOrDefault();
+            //获取该用户的购物车缓存
+            List<tb_Menu> _menuList = _client.Get<List<tb_Menu>>(OpenId);
+            if(_menuList!=null)
             {
-                //获取当前用户的购物车信息
-                List<tb_GoodsCar> userCar = _carList.Where(s => s.User_Id == User_Id).ToList();
-                if(userCar!=null)
+                tb_Menu m = _menuList.Where(s => s.M_Id == Menu_Id).FirstOrDefault();
+                if(m!=null)
                 {
-                    //查询该用户下菜品Id为Menu_Id的菜品
-                    var m = userCar.Where(s => s.Menu_Id == Menu_Id).FirstOrDefault();
-                    if(m!=null)
-                    {
-
-                    }
+                    model.CarNum += 1;
+                }
+                else
+                {
+                    model.CarNum = 1;
+                    _menuList.Add(model);
                 }
             }
-            return 0;
-            
+            else
+            {
+                _menuList = new List<tb_Menu>();
+                model.CarNum = 1;
+                _menuList.Add(model);
+            }
+            _client.Set(OpenId,_menuList);
+            return _menuList.Count;
+        }
+        /// <summary>
+        /// 获取购物车中的信息
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public List<tb_Menu> GetCarList(string openId)
+        {
+            List<tb_Menu> list = _client.Get<List<tb_Menu>>(openId);
+            return list;
+        }
+        /// <summary>
+        /// 清空购物车
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public void ClearCar(string openId)
+        {
+            _client.Del(openId);
+            GetCarList(openId);
         }
 
     }
