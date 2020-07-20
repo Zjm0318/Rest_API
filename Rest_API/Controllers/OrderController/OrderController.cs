@@ -68,5 +68,11 @@ namespace Rest_API.Controllers.OrderController
         {
             return bll.UpdOrder(oid,sta);
         }
+
+        //显示订单详情
+        public List<tb_OrderDetail> GetOrderDetail(int oid)
+        {
+            return bll.ShowOrderDetail(oid);
+        }
     }
 }
