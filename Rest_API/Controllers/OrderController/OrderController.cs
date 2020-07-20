@@ -61,5 +61,12 @@ namespace Rest_API.Controllers.OrderController
             }
             return order;
         }
+
+        //修改订单状态
+        [HttpPost]
+        public int UpdOrder(int oid,int sta)
+        {
+            return bll.UpdOrder(oid,sta);
+        }
     }
 }

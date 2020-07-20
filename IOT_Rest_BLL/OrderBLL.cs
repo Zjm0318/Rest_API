@@ -22,5 +22,10 @@ namespace IOT_Rest_BLL
             return JsonConvert.DeserializeObject<List<tb_OrderDetail>>(json);
         }
         
+        public int UpdOrder(int oid, int sta)
+        {
+            string sql = $"update tb_order set Order_State={sta} where Order_Id={oid}";
+            return db.ExcuteNonQuery(sql);
+        }
     }
 }
