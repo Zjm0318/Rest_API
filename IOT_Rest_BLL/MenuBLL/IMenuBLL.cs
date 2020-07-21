@@ -15,6 +15,5 @@ namespace IOT_Rest_BLL.MenuBLL
         int AddMenu(tb_Menu model);
 
 
-
     }
 }
