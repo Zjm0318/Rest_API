@@ -61,5 +61,47 @@ namespace Rest_API.Controllers.OrderController
             }
             return order;
         }
+
+        //修改订单状态
+        [HttpPost]
+        public int UpdOrder(int oid,int sta)
+        {
+            return bll.UpdOrder(oid,sta);
+        }
+
+        //显示订单详情
+        [HttpGet]
+        public List<OrderDetailViewModel> GetOrderDetail(int oid)
+        {
+            //实例化
+            List<OrderDetailViewModel> order = new List<OrderDetailViewModel>();
+
+            //获取数据
+            List<tb_OrderDetail> list= bll.ShowOrderDetail(oid);
+
+            //实例化
+            OrderDetailViewModel om = new OrderDetailViewModel();
+            om.Menus = new List<Menus>();
+            //循环
+            foreach (var item in list)
+            {
+                Menus mi = new Menus
+                {
+                    M_Name=item.M_Name,
+                    M_Img=item.M_Img,
+                    M_Price=item.M_Price,
+                    MenuNum=item.MenuNum
+                };
+                om.Menus.Add(mi);
+                om.Order_Id = item.Order_Id;
+                om.Order_Price = item.Order_Price;
+                om.Order_Num = item.Order_Num;
+                om.Order_Dan = item.Order_Dan;
+                om.Order_Sate = item.Order_Sate;
+                om.Order_State = item.Order_State;
+            }
+            order.Add(om);
+            return order;
+        }
     }
 }

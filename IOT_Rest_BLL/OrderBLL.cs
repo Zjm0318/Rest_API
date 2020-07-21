@@ -22,5 +22,22 @@ namespace IOT_Rest_BLL
             return JsonConvert.DeserializeObject<List<tb_OrderDetail>>(json);
         }
         
+        //修改状态
+        public int UpdOrder(int oid, int sta)
+        {
+            string sql = $"update tb_order set Order_State={sta} where Order_Id={oid}";
+            return db.ExcuteNonQuery(sql);
+        }
+
+        //显示订单详情
+        public List<tb_OrderDetail> ShowOrderDetail(int oid)
+        {
+            string sql = $"select o.Order_Id,m.M_Name,m.M_Img,m.M_Price,o.MenuNum,od.Order_Num,od.Order_Price,od.Order_Dan,od.Order_Sate,od.Order_State from tb_order od JOIN tb_orderdetail o ON od.Order_Id=o.Order_Id join tb_menu m on o.Menu_Id=m.M_Id where o.Order_Id="+oid;
+            
+            DataTable tb = db.ExcuteSql(sql);
+            string json = JsonConvert.SerializeObject(tb);
+            return JsonConvert.DeserializeObject<List<tb_OrderDetail>>(json);
+        }
+
     }
 }
