@@ -95,7 +95,7 @@ namespace Rest_API.Controllers.OrderController
                 om.Menus.Add(mi);
                 om.Order_Id = item.Order_Id;
                 om.Order_Price = item.Order_Price;
-                om.Orde_Num = item.Order_Num;
+                om.Order_Num = item.Order_Num;
                 om.Order_Dan = item.Order_Dan;
                 om.Order_Sate = item.Order_Sate;
                 om.Order_State = item.Order_State;

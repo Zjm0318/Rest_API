@@ -9,7 +9,7 @@ namespace Rest_API.Controllers.OrderController
     {
         public int Order_Id { get; set; }
         public List<Menus> Menus { get; set; }
-        public string Orde_Num { get; set; }
+        public string Order_Num { get; set; }
         public decimal Order_Price { get; set; }
         public string Order_Sate { get; set; }  
         public string Order_Dan { get; set; }
