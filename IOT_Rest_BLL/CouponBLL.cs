@@ -10,7 +10,7 @@ namespace IOT_Rest_BLL
 {
     public class CouponBLL
     {
-        private string Connection = "server=127.0.0.1;User Id=root;password=142701;Database=restaurant";
+        private string Connection = "server=192.168.0.192;User Id=root;password=1234;Database=restaurant";
 
         /// <summary>
         /// 显示优惠券
@@ -23,13 +23,17 @@ namespace IOT_Rest_BLL
             {
                 if (flag==0)
                 {
-                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon").ToList();
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW()").ToList();       
+                }
+                else if(flag==1)
+                {
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW() limit 0,2").ToList();
                 }
                 else
                 {
-                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon limit 0,2").ToList();
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime<NOW()").ToList();
                 }
-            }
+            }           
         }
 
         /// <summary>
@@ -41,7 +45,15 @@ namespace IOT_Rest_BLL
         {
             using (MySqlConnection conn = new MySqlConnection(Connection))
             {
-                return conn.Execute($"update restaurant.tb_coupon set Coupon_Num=Coupon_Num-1 where Coupon_Id={UId}");
+                var code = conn.Execute($"update restaurant.tb_coupon set Coupon_Num=Coupon_Num-1 where Coupon_Id={UId}");
+                if (code>0)
+                {
+                    return conn.Execute($"update restaurant.tb_coupon set Coupon_State=1 where Coupon_Id={UId}");
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
     }
