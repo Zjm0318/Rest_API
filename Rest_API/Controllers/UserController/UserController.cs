@@ -45,6 +45,7 @@ namespace Rest_API.Controllers.UserController
             //转成json格式
             JObject job = (JObject)JsonConvert.DeserializeObject(jo);
 
+            //用户类 赋值
             tb_User userinfo = new tb_User();
             userinfo.OpenId = job["openId"].ToString();
             userinfo.NickName = job["nickName"].ToString();
@@ -57,11 +58,13 @@ namespace Rest_API.Controllers.UserController
             MySqlConnection conn = new MySqlConnection("server=192.168.0.192;User Id=root;password=1234;Database=restaurant");
             //打开连接池
             conn.Open();
+            //查询是否有当前用户
             string sql= "SELECT * FROM `tb_user` where OpenId='"+userinfo.OpenId+"'";
             MySqlCommand cmd1 = new MySqlCommand(sql, conn);
             object obj = cmd1.ExecuteScalar();
             if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
             {
+                //添加当前用户的信息
                 string str1 = $"insert into tb_user(OpenId,NickName,AvatarUrl,Count,TimeStamp) VALUES('{userinfo.OpenId}', '{userinfo.NickName}', '{userinfo.AvatarUrl}', {count}, '{timestamp.ToString()}')";
                 MySqlCommand cmd2 = new MySqlCommand(str1,conn);
                 try
@@ -76,6 +79,7 @@ namespace Rest_API.Controllers.UserController
             }
             else
             {
+                //修改用户登录的次数
                 string str2 = $"update tb_user set Count=Count+1 where OpenId='{userinfo.OpenId}'";
                 MySqlCommand cmd3 = new MySqlCommand(str2,conn);
                 int row = cmd3.ExecuteNonQuery();
