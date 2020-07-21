@@ -14,5 +14,6 @@ namespace IOT_Rest_Model.DBModels
         public string Coupon_EndTime { get; set; }
         public int Coupon_Num { get; set; }
         public int Coupon_State { get; set; }
+        public int Coupon_States { get; set; }
     }
 }

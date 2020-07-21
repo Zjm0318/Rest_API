@@ -9,6 +9,6 @@ namespace IOT_Rest_Model.DBModels
 	 {
 		 public string  UserId { get; set; }
 		 public int  Coupon_Id { get; set; }
-		 public int  Coupon_State { get; set; }
+		 public int  Coupon_States { get; set; }
 	 }
 }

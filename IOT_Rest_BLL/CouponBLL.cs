@@ -25,13 +25,9 @@ namespace IOT_Rest_BLL
                 {
                     return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW()").ToList();       
                 }
-                else if(flag==1)
-                {
-                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW() limit 0,2").ToList();
-                }
                 else
                 {
-                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime<NOW()").ToList();
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW() limit 0,2").ToList();
                 }
             }           
         }

@@ -22,14 +22,14 @@ namespace Rest_API.Controllers.UserController
         public string GetSession_key(string code)
         {
            
-            string url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxc9311f12097ad22d&secret=46b5a85cd09c0079fc8617be090e6512&js_code="+code+ "&grant_type=authorization_code&connect_redirect=1";
+            string url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx5a232bbd9decb01c&secret=45824d2383cb565686db4a4c8b8793f5&js_code=" + code+ "&grant_type=authorization_code&connect_redirect=1";
             //获取请求后的数据
             string jotext = HttpService.Get(url);
             //转换成json格式
-            JObject jo = (JObject)JsonConvert.DeserializeObject(jotext);
+            //JObject jo = (JObject)JsonConvert.DeserializeObject(jotext);
             
-            string session_key = jo["session_key"].ToString();
-            string openid = jo["openid"].ToString();
+            //string session_key = jo["session_key"].ToString();
+            //string openid = jo["openid"].ToString();
             return jotext;
             
         }
@@ -92,17 +92,9 @@ namespace Rest_API.Controllers.UserController
        
         [HttpGet]
         //获取用户优惠券信息
-        public List<tb_Coupon> GetUserCoupon()
+        public List<tb_Coupon> GetUserCoupon(int flag,int flag1)
         {
-            List<tb_Coupon> list = bll.GetUserCoupon();
-            return list;
-        }
-
-        [HttpGet]
-        //获取用户优惠券信息 已过期或已使用
-        public List<tb_Coupon> GetUserCoupon2()
-        {
-            List<tb_Coupon> list = bll.GetUserCoupon2();
+            List<tb_Coupon> list = bll.GetUserCoupon(flag,flag1);
             return list;
         }
 
