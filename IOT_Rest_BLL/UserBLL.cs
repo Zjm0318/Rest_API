@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using IOT_Rest_DAL;
-using IOT_Rest_DAL.ADO.Net;
+using IOT_Rest_DAL.DBHelp;
 using IOT_Rest_Model.DBModels;
 using Newtonsoft.Json;
 
@@ -11,7 +11,7 @@ namespace IOT_Rest_BLL
 {
    public class UserBLL
     {
-        ADONetHelper dbhelp = new ADONetHelper();
+        DBHelper dbhelp = new DBHelper();
 
         //优惠券显示 未过期的
         public List<tb_Coupon> GetUserCoupon()

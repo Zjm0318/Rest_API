@@ -17,13 +17,13 @@ namespace Rest_API.Controllers.OrderController
 
         //显示订单
         [HttpGet]
-        public List<OrderViewModel> GetOrder()
+        public List<OrderViewModel> GetOrder(string uid)
         {
             //实例化
             List<OrderViewModel> order = new List<OrderViewModel>();
 
             //获取数据
-            List<tb_OrderDetail> list = bll.OrderList();
+            List<tb_OrderDetail> list = bll.OrderList(uid);
             //循环
             for (int i = 1; i <= list.Count; i++)
             {
@@ -102,6 +102,13 @@ namespace Rest_API.Controllers.OrderController
             }
             order.Add(om);
             return order;
+        }
+
+        //删除订单
+        [HttpPost]
+        public int DelOrder(int oid)
+        {
+            return bll.DelOrder(oid);
         }
     }
 }
