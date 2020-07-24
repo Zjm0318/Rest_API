@@ -17,7 +17,7 @@ namespace Rest_API.Controllers.OrderController
 
         //显示订单
         [HttpGet]
-        public List<OrderViewModel> GetOrder(string uid)
+        public List<OrderViewModel> GetOrder(string uid = "'ohnLO4oq9ISJEXu1ZpXJOhYT7oWg'")
         {
             //实例化
             List<OrderViewModel> order = new List<OrderViewModel>();
@@ -59,7 +59,7 @@ namespace Rest_API.Controllers.OrderController
                     order.Add(om);
                 }
             }
-            return order;
+            return order.OrderBy(s => s.O_State).ToList();
         }
 
         //修改订单状态
@@ -110,5 +110,34 @@ namespace Rest_API.Controllers.OrderController
         {
             return bll.DelOrder(oid);
         }
+
+        //再次购买
+        //[HttpPost]
+        //public int BuyMenu(int oid)
+        //{
+        //    List<Menus> menu = new List<Menus>();
+        //    //获取数据
+        //    List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
+        //    tb_Order order = new tb_Order();
+        //    //循环
+        //    foreach (var item in list)
+        //    {
+        //        //order.Order_Num = "";
+        //        order.Order_Price = item.Order_Price;
+        //        order.Order_State = 0;
+        //        order.Order_fs = "微信";
+        //        order.Order_Dan = DateTime.Now;
+        //        order.User_Id = item.User_Id;
+        //        order.Desk_Id = 1;
+        //        Menus m = new Menus
+        //        {
+        //            M_Id = item.Menu_Id,
+        //            MenuNum=item.MenuNum,
+        //        };
+        //        menu.Add(m);
+        //    }
+        //    return bll.添加订单(order, menu);
+        //}
+
     }
 }
