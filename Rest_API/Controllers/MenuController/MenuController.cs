@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IOT_Rest_BLL;
 using IOT_Rest_BLL.MenuBLL;
 using IOT_Rest_Model.DBModels;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,7 @@ namespace Rest_API.Controllers.MenuController
     [ApiController]
     public class MenuController : ControllerBase
     {
+       
         private IMenuBLL _menuBLL;
         CSRedis.CSRedisClient _client;
         public MenuController(IMenuBLL menuBLL)
@@ -22,7 +24,18 @@ namespace Rest_API.Controllers.MenuController
             _client = new CSRedis.CSRedisClient("127.0.0.1:6379");
             RedisHelper.Initialization(_client);
         }
-        
+        /// <summary>
+        /// 根据菜品Id 获取一条数据
+        /// </summary>
+        /// <param name="MenuId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public tb_Menu GetOneMenu(int MenuId)
+        {
+            List<tb_Menu> list = GetAllMenu();
+            tb_Menu model = list.Where(s => s.M_Id == MenuId).FirstOrDefault();
+            return model;
+        }
         List<tb_Menu> menuList = new List<tb_Menu>();
         /// <summary>
         /// 添加菜品
@@ -30,7 +43,7 @@ namespace Rest_API.Controllers.MenuController
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public int AddMenu(tb_Menu model)
+        public int AddMenu([FromForm]tb_Menu model)
         {
             return _menuBLL.AddMenu(model);
         }
@@ -39,6 +52,7 @@ namespace Rest_API.Controllers.MenuController
         /// </summary>
         /// <param name="TypeId"></param>
         /// <returns></returns>
+        [HttpGet]
         public List<tb_Menu> GetMenuList(int TypeId)
        {
             List<tb_Menu> list= _menuBLL.GetMenuList(TypeId);
@@ -52,7 +66,10 @@ namespace Rest_API.Controllers.MenuController
         {
             return _menuBLL.GetMenuTypeList();
         }
-        
+        /// <summary>
+        /// 获取所有菜品
+        /// </summary>
+        /// <returns></returns>
         public List<tb_Menu> GetAllMenu()
         {
             menuList = _menuBLL.GetAllMenu();

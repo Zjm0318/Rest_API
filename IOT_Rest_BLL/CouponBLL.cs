@@ -10,13 +10,38 @@ namespace IOT_Rest_BLL
 {
     public class CouponBLL
     {
-        private string Connection = "server=192.168.0.139;User Id=root;password=123456;Database=restaurant";
+        private string Connection = "server=127.0.0.1;User Id=root;password=142701;Database=restaurant";
 
-        public List<tb_Coupon> ShowCoupon()
+        /// <summary>
+        /// 显示优惠券
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        public List<tb_Coupon> ShowCoupon(int flag)
         {
             using (MySqlConnection conn=new MySqlConnection(Connection))
             {
-                return conn.Query<tb_Coupon>("select * from tb_Coupon").ToList();
+                if (flag==0)
+                {
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon").ToList();
+                }
+                else
+                {
+                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon limit 0,2").ToList();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 领取优惠券
+        /// </summary>
+        /// <param name="UId"></param>
+        /// <returns></returns>
+        public int LingQu(int UId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Connection))
+            {
+                return conn.Execute($"update restaurant.tb_coupon set Coupon_Num=Coupon_Num-1 where Coupon_Id={UId}");
             }
         }
     }
