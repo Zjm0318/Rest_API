@@ -11,13 +11,14 @@ namespace Rest_API.Controllers.OrderController
         public List<Menus> Menus { get; set; }
         public string Order_Num { get; set; }
         public decimal Order_Price { get; set; }
-        public string Order_Sate { get; set; }  
-        public string Order_Dan { get; set; }
+        public DateTime Order_Sate { get; set; }  
+        public DateTime Order_Dan { get; set; }
         public int Order_State { get; set; }
     }
 
     public class Menus
     {
+        public int M_Id { get; set; }
         public string M_Name { get; set; }
         public string M_Img { get; set; }
         public decimal M_Price { get; set; }
