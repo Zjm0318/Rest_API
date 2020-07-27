@@ -17,7 +17,7 @@ namespace Rest_API.Controllers.OrderController
 
         //显示订单
         [HttpGet]
-        public List<OrderViewModel> GetOrder(string uid = "'ohnLO4oq9ISJEXu1ZpXJOhYT7oWg'")
+        public List<OrderViewModel> GetOrder(string uid)
         {
             //实例化
             List<OrderViewModel> order = new List<OrderViewModel>();
