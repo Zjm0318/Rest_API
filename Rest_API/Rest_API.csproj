@@ -16,5 +16,10 @@
     <ProjectReference Include="..\IOT_Rest_Model\IOT_Rest_Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IOT_Rest_BLL\IOT_Rest_BLL.csproj" />
+    <ProjectReference Include="..\IOT_Rest_Model\IOT_Rest_Model.csproj" />
+  </ItemGroup>
+
 
 </Project>
