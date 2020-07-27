@@ -25,10 +25,10 @@ namespace Rest_API.Controllers.OrderController
             //获取数据
             List<tb_OrderDetail> list = bll.OrderList(uid);
             //循环
-            for (int i = 1; i <= list.Count; i++)
+            foreach (var q in list)
             {
                 //判断获取数据
-                var lis = list.Where(s => s.Order_Id == i).ToList();
+                var lis = list.Where(s => s.Order_Id == q.Order_Id).ToList();
                 if(lis.Count>0)
                 {
                     int a = 1;
