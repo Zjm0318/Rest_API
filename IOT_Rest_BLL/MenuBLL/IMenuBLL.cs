@@ -25,6 +25,6 @@ namespace IOT_Rest_BLL.MenuBLL
         /// <returns></returns>
          List<tb_MenuType> GetMenuTypeList();
 
-         List<tb_Menu> GetAllMenu();
+          List<tb_Menu> GetAllMenu();
     }
 }

@@ -54,9 +54,11 @@ namespace Rest_API.Controllers.MenuController
         /// <returns></returns>
         [HttpGet]
         public List<tb_Menu> GetMenuList(int TypeId)
-        {
-            return _menuBLL.GetMenuList(TypeId);
-        }/// <summary>
+       {
+            List<tb_Menu> list= _menuBLL.GetMenuList(TypeId);
+            return list;
+        }
+        /// <summary>
          /// 获取菜品类型
          /// </summary>
          /// <returns></returns>
