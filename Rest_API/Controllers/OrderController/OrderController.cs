@@ -112,7 +112,7 @@ namespace Rest_API.Controllers.OrderController
         }
 
         //再次购买
-        //[HttpPost]
+        [HttpPost]
         //public int BuyMenu(int oid)
         //{
         //    List<Menus> menu = new List<Menus>();
