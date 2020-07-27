@@ -17,14 +17,14 @@ namespace Rest_API.Controllers
 
         //展示优惠券
         [HttpGet]
-        public List<tb_Coupon> ShowCoupon(int flag)
+        public List<tb_Coupon> ShowCoupon(int flag,string openid)
         {
-            return bll.ShowCoupon(flag);
+            return bll.ShowCoupon(flag,openid);
         }
         [HttpGet]
-        public int LingQu(int UId)
+        public int LingQu(int UId, string openid)
         {
-            return bll.LingQu(UId);
+            return bll.LingQu(UId,openid);
         }
     }
 }

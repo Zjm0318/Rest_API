@@ -12,9 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using IOT_Rest_DAL.IDBHelp;
-using IOT_Rest_DAL.DBHelp;
-using IOT_Rest_BLL.MenuBLL;
 
 namespace Rest_API
 {

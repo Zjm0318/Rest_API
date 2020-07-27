@@ -72,8 +72,7 @@ namespace Rest_API.Controllers.UserController
                     int row = cmd2.ExecuteNonQuery();
                 }
                 catch (Exception)
-                {
-                 
+                {                
                     throw;
                 }
             }
@@ -92,9 +91,9 @@ namespace Rest_API.Controllers.UserController
        
         [HttpGet]
         //获取用户优惠券信息
-        public List<tb_Coupon> GetUserCoupon(int flag,int flag1)
+        public List<tb_Coupon> GetUserCoupon(int flag)
         {
-            List<tb_Coupon> list = bll.GetUserCoupon(flag,flag1);
+            List<tb_Coupon> list = bll.GetUserCoupon(flag);
             return list;
         }
 
