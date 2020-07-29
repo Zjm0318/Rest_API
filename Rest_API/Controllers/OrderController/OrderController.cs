@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IOT_Rest_BLL;
 using IOT_Rest_Model.DBModels;
+using Newtonsoft.Json;
 
 namespace Rest_API.Controllers.OrderController
 {
@@ -104,6 +105,24 @@ namespace Rest_API.Controllers.OrderController
             return order;
         }
 
+        //添加订单
+        [HttpPost]
+        public int AddOrder([FromForm]tb_Order orders, [FromForm]string lists)
+        {
+            List<tb_Menu> list = JsonConvert.DeserializeObject<List<tb_Menu>>(lists).ToList();
+
+            return bll.AddOrder(orders, list);
+
+        }
+
+        //显示优惠券
+        [HttpGet]
+        public List<tb_Coupon> GetCoupon(string ids)
+        {
+            List<tb_Coupon> list = bll.GetCoupon(ids);
+            return list;
+        }
+
         //删除订单
         [HttpPost]
         public int DelOrder(int oid)
@@ -111,33 +130,36 @@ namespace Rest_API.Controllers.OrderController
             return bll.DelOrder(oid);
         }
 
+        //修改优惠券
+
+        [HttpPost]
+        public int UpdateQuan(string openid, int quanId)
+        {
+            return bll.UpdateQuan(openid, quanId);
+        }
+
         //再次购买
-        //[HttpPost]
-        //public int BuyMenu(int oid)
-        //{
-        //    List<Menus> menu = new List<Menus>();
-        //    //获取数据
-        //    List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
-        //    tb_Order order = new tb_Order();
-        //    //循环
-        //    foreach (var item in list)
-        //    {
-        //        //order.Order_Num = "";
-        //        order.Order_Price = item.Order_Price;
-        //        order.Order_State = 0;
-        //        order.Order_fs = "微信";
-        //        order.Order_Dan = DateTime.Now;
-        //        order.User_Id = item.User_Id;
-        //        order.Desk_Id = 1;
-        //        Menus m = new Menus
-        //        {
-        //            M_Id = item.Menu_Id,
-        //            MenuNum=item.MenuNum,
-        //        };
-        //        menu.Add(m);
-        //    }
-        //    return bll.添加订单(order, menu);
-        //}
+        [HttpPost]
+        public int BuyMenu(int oid)
+        {
+            List<tb_Menu> menu = new List<tb_Menu>();
+            //获取数据
+            List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
+            tb_Order order = new tb_Order();
+            //循环
+            foreach (var item in list)
+            {
+                order.Order_Price = item.Order_Price;
+                order.User_Id = item.User_Id;
+                tb_Menu m = new tb_Menu
+                {
+                    M_Id = item.Menu_Id,
+                    CarNum = item.MenuNum,
+                };
+                menu.Add(m);
+            }
+            return bll.AddOrder(order, menu);
+        }
 
     }
 }
