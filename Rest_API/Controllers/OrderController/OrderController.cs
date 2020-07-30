@@ -59,8 +59,9 @@ namespace Rest_API.Controllers.OrderController
                     om.Num = lis.Count;
                     om.O_Name = nm.TrimEnd('、').ToString();
                 }
+                order.Add(om);
             }
-            order.Add(om);
+            
             return order.OrderBy(s => s.O_State).ToList();
         }
 
