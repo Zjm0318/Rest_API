@@ -47,7 +47,7 @@ namespace IOT_Rest_BLL
             string Number = "";
             Number = "DH " + DateTime.Now.ToString("yyyyMMddHHmmss");
             orders.Order_Dan = DateTime.Now;
-            string sql = $"insert into tb_order(Order_Num,User_Id,Desk_Id,Order_Price,Order_State,Order_fs,Order_Dan) VALUES('{Number}','{orders.User_Id}','1','{orders.Order_Price}','0','微信','{orders.Order_Dan}')";
+            string sql = $"insert into tb_order(Order_Num,User_Id,Desk_Id,Order_YingFu,Order_Price,Order_State,Order_YouHuiId,Order_YouHui,Order_fs,Order_Dan) VALUES('{Number}','{orders.User_Id}','1',{orders.Order_YingFu},'{orders.Order_Price}','0',{orders.Order_YouHuiId},{orders.Order_YouHui},'微信','{orders.Order_Dan}')";
             int c = db.ExcuteNonQuery(sql);
             int oid = 0;
             int s1 = 0;
