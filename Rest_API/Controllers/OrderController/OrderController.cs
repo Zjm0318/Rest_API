@@ -96,6 +96,9 @@ namespace Rest_API.Controllers.OrderController
                 om.Menus.Add(mi);
                 om.Order_Id = item.Order_Id;
                 om.Order_Price = item.Order_Price;
+                om.Order_YingFu = item.Order_YingFu;
+                om.Order_YouHuiId = item.Order_YouHuiId;
+                om.Order_YouHui = item.Order_YouHui;
                 om.Order_Num = item.Order_Num;
                 om.Order_Dan = item.Order_Dan;
                 om.Order_Sate = item.Order_Sate;
@@ -133,33 +136,33 @@ namespace Rest_API.Controllers.OrderController
         //修改优惠券
 
         [HttpPost]
-        public int UpdateQuan(string openid, int quanId)
+        public int UpdateQuan([FromForm]string openid, [FromForm]int quanId)
         {
             return bll.UpdateQuan(openid, quanId);
         }
 
         //再次购买
-        [HttpPost]
-        public int BuyMenu(int oid)
-        {
-            List<tb_Menu> menu = new List<tb_Menu>();
-            //获取数据
-            List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
-            tb_Order order = new tb_Order();
-            //循环
-            foreach (var item in list)
-            {
-                order.Order_Price = item.Order_Price;
-                order.User_Id = item.User_Id;
-                tb_Menu m = new tb_Menu
-                {
-                    M_Id = item.Menu_Id,
-                    CarNum = item.MenuNum,
-                };
-                menu.Add(m);
-            }
-            return bll.AddOrder(order, menu);
-        }
+        //[HttpPost]
+        //public int BuyMenu(int oid)
+        //{
+        //    List<tb_Menu> menu = new List<tb_Menu>();
+        //    //获取数据
+        //    List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
+        //    tb_Order order = new tb_Order();
+        //    //循环
+        //    foreach (var item in list)
+        //    {
+        //        order.Order_Price = item.Order_Price;
+        //        order.User_Id = item.User_Id;
+        //        tb_Menu m = new tb_Menu
+        //        {
+        //            M_Id = item.Menu_Id,
+        //            CarNum = item.MenuNum,
+        //        };
+        //        menu.Add(m);
+        //    }
+        //    return bll.AddOrder(order, menu);
+        //}
 
     }
 }
