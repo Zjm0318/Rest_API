@@ -25,6 +25,8 @@ namespace Rest_API.Controllers.OrderController
 
             //获取数据
             List<tb_OrderDetail> list = bll.OrderList(uid);
+
+            OrderViewModel om = new OrderViewModel();
             //循环
             foreach (var q in list)
             {
@@ -35,7 +37,6 @@ namespace Rest_API.Controllers.OrderController
                     int a = 1;
                     var nm = "";
                     //实例化
-                    OrderViewModel om = new OrderViewModel();
                     om.O_Img = new List<MenuImg>();
                     //循环
                     foreach (var item in lis)
@@ -57,9 +58,9 @@ namespace Rest_API.Controllers.OrderController
                     }
                     om.Num = lis.Count;
                     om.O_Name = nm.TrimEnd('、').ToString();
-                    order.Add(om);
                 }
             }
+            order.Add(om);
             return order.OrderBy(s => s.O_State).ToList();
         }
 
