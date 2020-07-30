@@ -55,7 +55,7 @@ namespace Rest_API.Controllers.UserController
             int count = 1;
 
             //创建连接对象
-            MySqlConnection conn = new MySqlConnection("server=192.168.0.192;User Id=root;password=1234;Database=restaurant");
+            MySqlConnection conn = new MySqlConnection("server=192.168.43.80;User Id=root;password=1234;Database=restaurant");
             //打开连接池
             conn.Open();
             //查询是否有当前用户

@@ -10,7 +10,7 @@ namespace IOT_Rest_BLL
 {
     public class CouponBLL
     {
-        private string Connection = "server=192.168.0.192;User Id=root;password=1234;Database=restaurant";
+        private string Connection = "server=192.168.43.80;User Id=root;password=1234;Database=restaurant";
 
         /// <summary>
         /// 显示优惠券
