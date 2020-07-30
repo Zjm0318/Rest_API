@@ -17,7 +17,7 @@ namespace IOT_Rest_BLL
         //显示订单
         public List<tb_OrderDetail> OrderList(string uid)
         {
-            string sql = $"select o.*,m.* from tb_order o JOIN tb_orderdetail d on o.Order_Id=d.Order_Id join tb_menu m on m.M_Id=d.Menu_Id where o.User_Id='{uid}'";
+            string sql = $"select o.*,m.*,d.* from tb_order o JOIN tb_orderdetail d on o.Order_Id=d.Order_Id join tb_menu m on m.M_Id=d.Menu_Id where o.User_Id='{uid}'";
             
             DataTable tb = db.ExcuteSql(sql);
             string json = JsonConvert.SerializeObject(tb);

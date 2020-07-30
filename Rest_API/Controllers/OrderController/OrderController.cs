@@ -18,7 +18,7 @@ namespace Rest_API.Controllers.OrderController
 
         //显示订单
         [HttpGet]
-        public List<OrderViewModel> GetOrder(string uid)
+        public List<OrderViewModel> GetOrder(string uid= "o25Ne5ZEqb2WGO3x9-z1UaQ-sYp4")
         {
             //实例化
             List<OrderViewModel> order = new List<OrderViewModel>();
@@ -26,39 +26,39 @@ namespace Rest_API.Controllers.OrderController
             //获取数据
             List<tb_OrderDetail> list = bll.OrderList(uid);
 
-            OrderViewModel om = new OrderViewModel();
+            var l = list.GroupBy(h => h.Order_Id).Select(t=>t.First()).ToList();
             //循环
-            foreach (var q in list)
+            foreach (var q in l)
             {
                 //判断获取数据
                 var lis = list.Where(s => s.Order_Id == q.Order_Id).ToList();
-                if(lis.Count>0)
+
+                int a = 1;
+                var nm = "";
+                //实例化
+                OrderViewModel om = new OrderViewModel();
+                om.O_Img = new List<MenuImg>();
+
+                //循环
+                foreach (var item in lis)
                 {
-                    int a = 1;
-                    var nm = "";
-                    //实例化
-                    om.O_Img = new List<MenuImg>();
-                    //循环
-                    foreach (var item in lis)
+                    //判断
+                    if (a <= 3)
                     {
-                        //判断
-                        if (a <= 3)
+                        nm += item.M_Name + "、";
+                        MenuImg mi = new MenuImg
                         {
-                            nm += item.M_Name + "、";
-                            MenuImg mi = new MenuImg
-                            {
-                                photo = item.M_Img,
-                            };
-                            om.O_Img.Add(mi);
-                        }
-                        om.O_Id = item.Order_Id;
-                        om.O_Price = item.Order_Price;
-                        om.O_State = item.Order_State;
-                        a++;
+                            photo = item.M_Img,
+                        };
+                        om.O_Img.Add(mi);
                     }
-                    om.Num = lis.Count;
-                    om.O_Name = nm.TrimEnd('、').ToString();
+                    om.Num += item.MenuNum;
+                    om.O_Id = item.Order_Id;
+                    om.O_Price = item.Order_Price;
+                    om.O_State = item.Order_State;
+                    a++;
                 }
+                om.O_Name = nm.TrimEnd('、').ToString();
                 order.Add(om);
             }
             
