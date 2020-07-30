@@ -11,6 +11,9 @@ namespace Rest_API.Controllers.OrderController
         public List<Menus> Menus { get; set; }
         public string Order_Num { get; set; }
         public decimal Order_Price { get; set; }
+        public decimal Order_YingFu { get; set; }
+        public int Order_YouHuiId { get; set; }
+        public int Order_YouHui { get; set; }
         public DateTime Order_Sate { get; set; }  
         public DateTime Order_Dan { get; set; }
         public int Order_State { get; set; }
