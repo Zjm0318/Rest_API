@@ -25,11 +25,7 @@ namespace Rest_API.Controllers.UserController
             string url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx5a232bbd9decb01c&secret=45824d2383cb565686db4a4c8b8793f5&js_code=" + code+ "&grant_type=authorization_code&connect_redirect=1";
             //获取请求后的数据
             string jotext = HttpService.Get(url);
-            //转换成json格式
-            //JObject jo = (JObject)JsonConvert.DeserializeObject(jotext);
-            
-            //string session_key = jo["session_key"].ToString();
-            //string openid = jo["openid"].ToString();
+
             return jotext;
             
         }
@@ -38,7 +34,6 @@ namespace Rest_API.Controllers.UserController
         [HttpGet]
         public string GetUserInfo(string session_key,string iv, string encryptedData)
         {
-            //int result = new WXBizDataCrypt(session_key).decryptData(encryptedData, iv, out date);
 
             //获取用户数据
             string jo = WXBizDataCrypt.AESDecrypt(encryptedData,session_key,iv);

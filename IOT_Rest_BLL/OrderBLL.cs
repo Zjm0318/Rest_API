@@ -22,14 +22,7 @@ namespace IOT_Rest_BLL
             DataTable tb = db.ExcuteSql(sql);
             string json = JsonConvert.SerializeObject(tb);
             return JsonConvert.DeserializeObject<List<tb_OrderDetail>>(json);
-        }
-        
-        //修改状态
-        public int UpdOrder(int oid, int sta)
-        {
-            string sql = $"update tb_order set Order_State={sta} where Order_Id={oid}";
-            return db.ExcuteNonQuery(sql);
-        }
+        }    
 
         //显示订单详情
         public List<tb_OrderDetail> ShowOrderDetail(int oid)
@@ -96,18 +89,29 @@ namespace IOT_Rest_BLL
             return JsonConvert.DeserializeObject<List<tb_Coupon>>(JsonConvert.SerializeObject(tb)).ToList();
         }
 
-        //优惠券状态修改
-        public int UpdateQuan(string openid, int quanId)
+
+          //修改状态
+        public int UpdOrder(int oid, int sta, string openid, int quanId)
         {
+            string sql = $"update tb_order set Order_State={sta} where Order_Id={oid}";
+            int code = db.ExcuteNonQuery(sql);
 
-            string proc = "UpdateQuan";
-            MySqlParameter[] mySqlParameters = new MySqlParameter[] {
-            new MySqlParameter{ParameterName="openid",MySqlDbType= MySqlDbType.String,Direction= ParameterDirection.Input,Value=openid },
-            new MySqlParameter{ParameterName="youhuiId",MySqlDbType= MySqlDbType.Int32,Direction= ParameterDirection.Input,Value=quanId }
+            //优惠券状态修改
+            if (code>0&&sta==1)
+            {
+                    string proc = "UpdateQuan";
+                    MySqlParameter[] mySqlParameters = new MySqlParameter[] {
+                new MySqlParameter{ParameterName="openid",MySqlDbType= MySqlDbType.String,Direction= ParameterDirection.Input,Value=openid },
+                new MySqlParameter{ParameterName="youhuiId",MySqlDbType= MySqlDbType.Int32,Direction= ParameterDirection.Input,Value=quanId }
 
-            };
-            return db.ExecuteNonQuery_Proc(proc, mySqlParameters);
-        }
+                };
+                return db.ExecuteNonQuery_Proc(proc, mySqlParameters);
+            }
+            else
+            {
+                return code;
+            }
+        }      
 
         //删除订单
         public int DelOrder(int oid)

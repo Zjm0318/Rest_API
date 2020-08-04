@@ -67,9 +67,9 @@ namespace Rest_API.Controllers.OrderController
 
         //修改订单状态
         [HttpPost]
-        public int UpdOrder(int oid,int sta)
+        public int UpdOrder(int oid,int sta, string openid, int quanId)
         {
-            return bll.UpdOrder(oid,sta);
+            return bll.UpdOrder(oid,sta,openid,quanId);
         }
 
         //显示订单详情
@@ -134,37 +134,5 @@ namespace Rest_API.Controllers.OrderController
         {
             return bll.DelOrder(oid);
         }
-
-        //修改优惠券
-
-        [HttpPost]
-        public int UpdateQuan([FromForm]string openid, [FromForm]int quanId)
-        {
-            return bll.UpdateQuan(openid, quanId);
-        }
-
-        //再次购买
-        //[HttpPost]
-        //public int BuyMenu(int oid)
-        //{
-        //    List<tb_Menu> menu = new List<tb_Menu>();
-        //    //获取数据
-        //    List<tb_OrderDetail> list = bll.ShowOrderDetail(oid);
-        //    tb_Order order = new tb_Order();
-        //    //循环
-        //    foreach (var item in list)
-        //    {
-        //        order.Order_Price = item.Order_Price;
-        //        order.User_Id = item.User_Id;
-        //        tb_Menu m = new tb_Menu
-        //        {
-        //            M_Id = item.Menu_Id,
-        //            CarNum = item.MenuNum,
-        //        };
-        //        menu.Add(m);
-        //    }
-        //    return bll.AddOrder(order, menu);
-        //}
-
     }
 }
