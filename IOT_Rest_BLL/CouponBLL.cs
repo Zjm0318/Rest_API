@@ -5,6 +5,7 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using IOT_Rest_Model.DBModels;
 using System.Linq;
+using System.Data;
 
 namespace IOT_Rest_BLL
 {
@@ -28,8 +29,9 @@ namespace IOT_Rest_BLL
                     //使优惠券都为可领取状态
                     conn.Execute("update restaurant.tb_coupon set Coupon_State=0");
 
+                    string procName = "CouponInfo";
                     //返回所有优惠券
-                    return conn.Query<tb_Coupon>("select * from restaurant.tb_coupon where Coupon_EndTime>NOW()").ToList();
+                    return conn.Query<tb_Coupon>(procName,commandType:CommandType.StoredProcedure).ToList();
                 }
                 //openid不为空
                 else

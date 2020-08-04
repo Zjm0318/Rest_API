@@ -67,9 +67,9 @@ namespace Rest_API.Controllers.OrderController
 
         //修改订单状态
         [HttpPost]
-        public int UpdOrder(int oid,int sta, string openid, int quanId)
+        public int UpdOrder(int oid,int sta)
         {
-            return bll.UpdOrder(oid,sta,openid,quanId);
+            return bll.UpdOrder(oid,sta);
         }
 
         //显示订单详情

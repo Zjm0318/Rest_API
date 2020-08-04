@@ -71,12 +71,9 @@ namespace IOT_Rest_BLL
             {
                 return -1;
             }
-
-
         }
 
         //显示优惠券
-
         public List<tb_Coupon> GetCoupon(string ids)
         {
             string procname = "prcCoupontss";
@@ -91,26 +88,10 @@ namespace IOT_Rest_BLL
 
 
           //修改状态
-        public int UpdOrder(int oid, int sta, string openid, int quanId)
+        public int UpdOrder(int oid, int sta)
         {
             string sql = $"update tb_order set Order_State={sta} where Order_Id={oid}";
-            int code = db.ExcuteNonQuery(sql);
-
-            //优惠券状态修改
-            if (code>0&&sta==1)
-            {
-                    string proc = "UpdateQuan";
-                    MySqlParameter[] mySqlParameters = new MySqlParameter[] {
-                new MySqlParameter{ParameterName="openid",MySqlDbType= MySqlDbType.String,Direction= ParameterDirection.Input,Value=openid },
-                new MySqlParameter{ParameterName="youhuiId",MySqlDbType= MySqlDbType.Int32,Direction= ParameterDirection.Input,Value=quanId }
-
-                };
-                return db.ExecuteNonQuery_Proc(proc, mySqlParameters);
-            }
-            else
-            {
-                return code;
-            }
+            return db.ExcuteNonQuery(sql);           
         }      
 
         //删除订单
